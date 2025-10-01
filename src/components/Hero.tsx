@@ -28,7 +28,7 @@ const Hero = () => {
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center text-white">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mb-6 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mb-8 mt-8 animate-fade-in">
             <Heart className="h-4 w-4 text-white fill-white" />
             <span className="text-sm font-medium">Trusted Healthcare Since Years</span>
           </div>
@@ -75,18 +75,18 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 mb-20 max-w-3xl mx-auto">
             {[
               { number: "15+", label: "Years Experience" },
               { number: "5000+", label: "Happy Patients" },
               { number: "24/7", label: "Emergency Care" },
               { number: "100%", label: "Patient Satisfaction" },
             ].map((stat, index) => (
-              <div key={index} className="text-center animate-fade-in">
+              <div key={index} className="text-center animate-fade-in bg-white/10 backdrop-blur-sm rounded-lg p-4">
                 <div className="text-3xl md:text-4xl font-bold text-white mb-2">
                   {stat.number}
                 </div>
-                <div className="text-sm text-white/80">{stat.label}</div>
+                <div className="text-sm text-white/90 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
