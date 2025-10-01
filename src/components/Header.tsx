@@ -45,9 +45,9 @@ const Header = () => {
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-3">
-            <img src={logo} alt="Fatima Hospital Logo" className="h-14 w-14 rounded-full" />
-            <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-secondary leading-tight">
+            <img src={logo} alt="Fatima Hospital Logo" className="h-12 w-12 sm:h-14 sm:w-14 rounded-full" />
+            <div className="block">
+              <h1 className="text-base sm:text-lg font-bold text-secondary leading-tight">
                 Fatima Hospital
               </h1>
               <p className="text-xs text-muted-foreground">Surgery & Maternity Centre</p>
