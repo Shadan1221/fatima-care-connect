@@ -7,9 +7,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar, Mail, MessageSquare, Phone, User } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Enquiry = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -18,7 +20,7 @@ const Enquiry = () => {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -31,21 +33,47 @@ const Enquiry = () => {
       return;
     }
 
-    // Here you would typically send the data to your backend
-    // For now, we'll just show a success message
-    toast({
-      title: "Appointment Request Received!",
-      description: "We'll contact you shortly to confirm your appointment.",
-    });
+    setIsSubmitting(true);
 
-    // Reset form
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      department: "",
-      message: ""
-    });
+    try {
+      // Insert appointment into Supabase
+      const { error } = await supabase
+        .from('appointments')
+        .insert([
+          {
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email || null,
+            department: formData.department,
+            message: formData.message || null
+          }
+        ]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Appointment Request Received!",
+        description: "We'll contact you shortly to confirm your appointment.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        department: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error('Error submitting appointment:', error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your appointment. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -144,8 +172,8 @@ const Enquiry = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full" size="lg">
-                Submit Appointment Request
+              <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                {isSubmitting ? "Submitting..." : "Submit Appointment Request"}
               </Button>
 
               <p className="text-sm text-muted-foreground text-center">
