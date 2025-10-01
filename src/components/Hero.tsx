@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart } from "lucide-react";
+import logo from "@/assets/logo.jpg";
 
 const Hero = () => {
   const scrollToEnquiry = () => {
@@ -32,6 +33,11 @@ const Hero = () => {
             <span className="text-sm font-medium">Trusted Healthcare Since Years</span>
           </div>
           
+          {/* Centered Logo */}
+          <div className="mb-6 animate-fade-in">
+            <img src={logo} alt="Fatima Hospital Logo" className="h-24 w-24 md:h-32 md:w-32 rounded-full mx-auto shadow-lg" />
+          </div>
+          
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in">
             Fatima Hospital, Bareilly
           </h1>
@@ -61,9 +67,8 @@ const Hero = () => {
             
             <Button
               size="lg"
-              variant="outline"
               onClick={() => window.open("tel:+911234567890")}
-              className="border-2 border-white text-white hover:bg-white hover:text-secondary transition-all duration-300 text-base px-8 py-6"
+              className="bg-secondary text-white hover:bg-secondary/90 hover:scale-105 transition-all duration-300 shadow-lg text-base px-8 py-6"
             >
               Call Us Now
             </Button>
